@@ -300,3 +300,232 @@
     .container{ padding-left:18px; padding-right:18px}
   }
   
+/* industy */
+/* --------------------------
+   Industries — Glassy professional
+   Paste after your :root vars
+   -------------------------- */
+
+.industries-section {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+/* Grid: mobile-first */
+.industries-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin-top: 26px;
+  align-items: start;
+}
+
+/* card (glassy) */
+.industry-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  border-radius: 14px;
+  min-height: 200px;
+
+  /* glass surface */
+  background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.015));
+  border: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+
+  /* soft inner highlight + depth */
+  box-shadow:
+    0 6px 18px rgba(2,6,23,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.02);
+  transition: transform .28s cubic-bezier(.2,.8,.2,1), box-shadow .28s ease, border-color .28s ease;
+  overflow: hidden;
+  outline: none;
+}
+
+/* reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  .industry-card { transition: none; }
+}
+
+/* hover / focus elevation */
+.industry-card:focus,
+.industry-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255,255,255,0.12);
+  box-shadow:
+    0 28px 80px rgba(2,6,23,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.02);
+}
+
+/* head row */
+.card-head {
+  display:flex;
+  gap:14px;
+  align-items:center;
+  justify-content:flex-start;
+}
+
+/* Icon (glassy badge) */
+.icon {
+  width:56px;
+  height:56px;
+  border-radius:12px;
+  display:inline-grid;
+  place-items:center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  position:relative;
+  flex-shrink:0;
+}
+
+/* soft glow behind icon to make it pop */
+.icon::after{
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 16px;
+  filter: blur(22px);
+  opacity: 0.18;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(71, 35, 249, 0.28), rgba(42,210,201,0.18));
+  transition: opacity .28s ease;
+}
+
+/* individual color intensities preserved, but softened */
+.icon.purple::after{ background: linear-gradient(90deg, rgba(122,84,255,0.30), rgba(192,75,255,0.18)); }
+.icon.magenta::after{ background: linear-gradient(90deg, rgba(255,86,162,0.30), rgba(123,59,255,0.18)); }
+.icon.cyan::after{ background: linear-gradient(90deg, rgba(45,210,201,0.30), rgba(58,166,255,0.18)); }
+.icon.blue::after{ background: linear-gradient(90deg, rgba(74,123,255,0.30), rgba(107,177,255,0.18)); }
+
+/* title */
+.industry-title {
+  margin:0;
+  font-size:18px;
+  font-weight:800;
+  color: #f6f7fb;
+  letter-spacing: -0.2px;
+}
+
+/* expand button inline (keeps layout neat on desktop) */
+.expand-btn {
+  background: transparent;
+  border: 0;
+  margin-left: 8px;
+  padding:6px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color: var(--muted);
+  border-radius:8px;
+  cursor: pointer;
+}
+.expand-btn svg { width:18px; height:18px; transition: transform .22s ease, color .22s ease; }
+.expand-btn[aria-expanded="true"] svg { transform: rotate(180deg); color: #dfe6ff; }
+
+/* list */
+.industry-list {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  color: var(--muted);
+  display:block;
+  transition: opacity .22s ease, transform .22s ease;
+}
+.industry-list li {
+  position: relative;
+  padding-left: 16px;
+  margin: 8px 0;
+  font-size:15px;
+  line-height:1.55;
+}
+
+/* softer bullet dot aligned with glass style */
+.industry-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(180deg,#6ff1b5,#09d18a);
+  box-shadow: 0 6px 12px rgba(9,209,138,0.12), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+/* small translucent divider for visual separation */
+.industry-card + .industry-card {
+  margin-top: 6px;
+}
+
+/* collapsed behavior on narrow screens */
+@media (max-width: 900px) {
+  .industries-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .industry-list {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+  }
+
+  .industry-card.expanded .industry-list {
+    max-height: 420px; /* supports up to ~8 list items */
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  /* make expand affordance more visible on mobile */
+  .expand-btn { display: inline-flex; }
+}
+
+/* tablet: two-up */
+@media (min-width: 900px) and (max-width: 1200px) {
+  .industries-grid { grid-template-columns: repeat(2, 1fr); gap:20px; }
+  .industry-card { min-height: 220px; padding:22px; }
+}
+
+/* desktop: three-up */
+@media (min-width: 1200px) {
+  .industries-grid { grid-template-columns: repeat(3, 1fr); gap:24px; }
+  .industry-card { padding:24px; min-height:240px; }
+  /* on desktop we show lists by default (no collapse) */
+  .industry-list { opacity: 1; max-height: none; pointer-events: auto; transform: none; }
+  .expand-btn { opacity: 0.85; }
+}
+
+/* visual accent overlay */
+.industry-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.008), rgba(0,0,0,0.02));
+  mix-blend-mode: overlay;
+}
+
+/* reveal animation for progressive loading (keeps from previous script) */
+.industry-card[data-visible="false"] {
+  opacity: 0;
+  transform: translateY(10px) scale(.997);
+}
+.industry-card[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity .6s ease, transform .6s cubic-bezier(.2,.8,.2,1);
+}
+
+/* accessible sr-only if not present */
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
