@@ -993,3 +993,129 @@ textarea:-webkit-autofill {
   .booking-copy strong { font-size:16px; }
   .contact-form textarea { min-height:120px; }
 }
+
+/* manish effect */
+/* 1) slide-in + gradient underline (auto-play on load) */
+ul.bullets{ list-style:none; padding:0; margin:18px 0 22px; }
+ul.bullets li{
+  position:relative;
+  padding-left:34px;
+  margin:12px 0;
+  color:#e6e6e6;
+  transform: translateX(-18px);
+  opacity:0;
+  animation: slideIn .55s cubic-bezier(.2,.9,.25,1) forwards;
+  /* stagger */
+}
+ul.bullets li::before{
+  content:"";
+  position:absolute;
+  left:0; top:50%;
+  transform:translateY(-50%);
+  width:10px; height:10px; border-radius:50%;
+  background:linear-gradient(180deg,#6f5cff,#2ee7c6);
+  box-shadow:0 8px 24px rgba(46,231,198,0.08);
+  opacity:.95;
+}
+ul.bullets li::after{
+  content:"";
+  position:absolute;
+  left:34px; right:0; bottom:-6px;
+  height:3px;
+  background:linear-gradient(90deg,#7a5cff,#2ee7c6 60%, transparent);
+  transform-origin:left;
+  transform:scaleX(0);
+  transition:transform .36s ease;
+}
+/* stagger delays */
+ul.bullets li:nth-child(1){ animation-delay:.05s; }
+ul.bullets li:nth-child(2){ animation-delay:.12s; }
+ul.bullets li:nth-child(3){ animation-delay:.19s; }
+ul.bullets li:nth-child(4){ animation-delay:.26s; }
+ul.bullets li:nth-child(5){ animation-delay:.33s; }
+ul.bullets li:nth-child(6){ animation-delay:.40s; }
+
+/* reveal underline on hover/focus */
+.price-card:hover ul.bullets li::after,
+.price-card:focus-within ul.bullets li::after{
+  transform:scaleX(1);
+}
+
+/* keyframes */
+@keyframes slideIn{
+  to{ transform:translateX(0); opacity:1; }
+}
+
+/* 2) pop-dot + check reveal (hover/focus) */
+ul.bullets{ list-style:none; padding:0; margin:18px 0 22px; }
+ul.bullets li{
+  position:relative; padding-left:44px; margin:12px 0; color:#dcdcdc;
+  transition: transform .28s;
+}
+ul.bullets li::before{
+  content:"";
+  position:absolute; left:0; top:50%; transform:translateY(-50%);
+  width:14px; height:14px; border-radius:50%;
+  background:#0fdc9a;
+  box-shadow:0 6px 20px rgba(15,220,154,0.12);
+  transition: transform .26s cubic-bezier(.2,.9,.25,1), box-shadow .26s;
+}
+ul.bullets li::after{
+  content:"";
+  position:absolute; left:4px; top:calc(50% - 6px); width:7px; height:12px;
+  border-right:2px solid transparent; border-bottom:2px solid transparent;
+  transform: rotate(45deg) scale(.8); opacity:0;
+  transition: all .22s ease;
+}
+
+/* hover/focus-within on card */
+.price-card:hover ul.bullets li,
+.price-card:focus-within ul.bullets li{ transform: translateX(0); }
+
+.price-card:hover ul.bullets li::before,
+.price-card:focus-within ul.bullets li::before{
+  transform: translateY(-50%) scale(1.14);
+  box-shadow:0 12px 28px rgba(15,220,154,0.16);
+}
+.price-card:hover ul.bullets li::after,
+.price-card:focus-within ul.bullets li::after{
+  border-right-color:#fff; border-bottom-color:#fff; opacity:1; transform:rotate(45deg) scale(1);
+}
+
+/* small bounce when focusing each li (keyboard users) */
+ul.bullets li:focus{ outline:none; transform: translateX(6px); }
+
+/* 3) neon trail + staggered fade (auto-load with hover glow) */
+ul.bullets{ list-style:none; padding:0; margin:18px 0 22px; }
+ul.bullets li{
+  position:relative; padding-left:28px; margin:14px 0; color:#cfcfcf;
+  opacity:0; transform: translateY(8px);
+  animation: fadeUp .5s ease forwards;
+}
+ul.bullets li::before{
+  content:""; position:absolute; left:0; top:50%; transform:translateY(-50%);
+  width:6px; height:6px; border-radius:50%; background:#00e5a8;
+  box-shadow:0 0 18px rgba(0,229,168,0.18);
+}
+ul.bullets li::after{
+  content:""; position:absolute; left:-12px; top:0; bottom:0; width:4px;
+  background:linear-gradient(#2ee7c6, #7a5cff); transform:scaleY(0);
+  transform-origin:top; transition: transform .34s cubic-bezier(.2,.9,.2,1);
+  border-radius:4px;
+}
+
+/* stagger */
+ul.bullets li:nth-child(1){ animation-delay:.06s; }
+ul.bullets li:nth-child(2){ animation-delay:.12s; }
+ul.bullets li:nth-child(3){ animation-delay:.18s; }
+ul.bullets li:nth-child(4){ animation-delay:.24s; }
+ul.bullets li:nth-child(5){ animation-delay:.30s; }
+
+/* hover/focus glow */
+.price-card:hover ul.bullets li,
+.price-card:focus-within ul.bullets li{ filter:brightness(1.05); }
+.price-card:hover ul.bullets li::after,
+.price-card:focus-within ul.bullets li::after{ transform:scaleY(1); }
+
+/* keyframes */
+@keyframes fadeUp{ to{ opacity:1; transform:translateY(0); } }
